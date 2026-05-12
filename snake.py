@@ -14,6 +14,8 @@ class snake:
 
         self.make_apple() #bg gets made in making of apple
 
+        self.btn_pos_dict = {} #cause old method made it lag hard
+
         self.root.bind('<FocusIn>',lambda e=None:print('yes')) #for testing
         self.root.bind('<FocusOut>',lambda e=None:print('no'))
 
@@ -37,6 +39,9 @@ class snake:
         for i in range(180): #makes all the buttons
             btn = tk.Button(text=i,width=5,height=2,bg='black',fg='black') ; btn.pack()
             btn.place(x=x,y=y)
+
+            self.btn_pos_dict[i] = btn
+
             if x <= 15*45:
                 x += 45
                 if x == 15*45:
@@ -46,22 +51,17 @@ class snake:
         self.bg_color()
     
     def bg_color(self):
-        for widget in self.root.winfo_children():
-            if isinstance(widget,tk.Button):
-                if int(widget.cget('text')) in self.pos_1:
-                    widget.config(bg='green',fg='green') #make things in list green
+        for i in self.btn_pos_dict:
+            i.config(bg='black',fg='black') #make everything black
 
-                    if int(widget.cget('text')) == self.pos_1[0]:#change color of head
-                        widget.config(bg='blue',fg='white') #fg = white shows current position in button
+        for i in self.pos_1:
+            self.btn_pos_dict[i].config(bg='green',fg='green') #make things in list green
 
-                    elif int(widget.cget('text')) == self.pos_1[-1]:#change color of tail
-                        widget.config(bg='orange',fg='white')
-                    
-                elif int(widget.cget('text')) == self.apple_pos:
-                    widget.config(bg='red',fg='white')
+        self.btn_pos_dict[self.pos_1[0]].config(bg='blue',fg='white') #make head blue
+        self.btn_pos_dict[self.pos_1[-1]].config(bg='orange',fg='white') #makes tail orange
+        #fg = white shows current position in button
 
-                else:
-                    widget.config(bg='black',fg='black') #make everything black
+        self.btn_pos_dict[self.apple_pos].config(bg='red',fg='white') #make apple red
 
     def move(self,event):
         self.label_main.config(font='Arial 15 bold',text=f'Length of Snake: {len(self.pos_1)}  Score: {self.apple_eaten}')
