@@ -78,19 +78,24 @@ class snake:
         elif event == 's': #back
             self.pos_1.insert(0,self.pos_1[0]+15)
 
-        self.pos_1.pop() #removes tail
+        if self.apple_pos == self.pos_1[0]:
+            ... #doesnt remove tail if apple is eaten
+        else:
+            self.pos_1.pop() #removes tail
+
         self.bg_color() #makes things green again according to self.pos_1
         self.root.after(self.tick_speed,lambda:self.move(self.last_pressed)) #auto move
     
         self.apple_check()
     
-    def apple_check(self):
+    def apple_check(self): #this is for scores and making the body bigger
         if self.apple_pos == self.pos_1[0]:
             self.apple_eaten+=1 #increases apple
             self.make_apple() #remakes everything gives it a cool white flash vfx
 
             if self.apple_eaten%5 == 0:
-                self.tick_speed-=50
+                if self.tick_speed > 0:
+                    self.tick_speed-=50
 
 if __name__ == '__main__':
     root = tk.Tk()
