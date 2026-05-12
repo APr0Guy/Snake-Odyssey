@@ -16,7 +16,7 @@ class snake:
                 x += 45
                 if x == 15*45:
                     x = 0
-                    y += 40 #is it tho
+                    y += 40
 
 if __name__ == '__main__':
     root = tk.Tk()
