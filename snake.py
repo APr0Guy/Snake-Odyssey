@@ -14,7 +14,8 @@ class snake:
 
         self.btn_pos_dict = {} #cause old method made it lag hard
 
-        self.make_apple() #bg gets made in making of apple
+        self.bg_make() #makes background
+        self.make_apple() #making of apple and coloring of bg
 
         self.root.bind('<FocusIn>',lambda e=None:print('yes')) #for testing
         self.root.bind('<FocusOut>',lambda e=None:print('no'))
@@ -32,7 +33,7 @@ class snake:
         while self.apple_pos in self.pos_1: #apple doesnt spawn in snakes body
             self.apple_pos = random.randint(0,180)
         
-        self.bg_make() #makes bg after apple has been made
+        self.bg_color() #makes bg after apple has been made
 
     def bg_make(self):
         x,y = 0,40 # 40x45 (y,x) x is 15 times y is 12 times and diff btwn 2 x is 15
@@ -47,12 +48,10 @@ class snake:
                 if x == 15*45:
                     x = 0
                     y += 40
-
-        self.bg_color()
     
     def bg_color(self):
         for i in self.btn_pos_dict:
-            i.config(bg='black',fg='black') #make everything black
+            self.btn_pos_dict[i].config(bg='black',fg='black') #make everything black
 
         for i in self.pos_1:
             self.btn_pos_dict[i].config(bg='green',fg='green') #make things in list green
