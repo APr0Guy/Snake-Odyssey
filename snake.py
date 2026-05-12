@@ -8,7 +8,7 @@ class snake:
         self.bg_make()
 
     def bg_make(self):
-        x = y = 0 # 40x45 (y,x) x is 15 times y is 12 times
+        x = y = 0 # 40x45 (y,x) x is 15 times y is 12 times and diff btwn 2 x is 15
         for i in range(180):
             btn = tk.Button(text=i,width=5,height=2).place(x=x,y=y)
             x+=45
