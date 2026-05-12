@@ -53,6 +53,8 @@ class snake:
                     widget.config(bg='black',fg='black') #make everything black
 
     def move(self,event):
+        self.label_main.config(font='Arial 20 bold',text=f'Score:     Length of Snake:{len(self.pos_1)}')
+
         if event == 'a': #left
             self.pos_1.insert(0,self.pos_1[0]-1) #assigns new position for head
         
