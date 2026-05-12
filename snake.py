@@ -12,9 +12,9 @@ class snake:
         self.label_main = tk.Label(self.root,text='PRESS SPACE TO START',font='Arial 20 bold') ; self.label_main.pack()
         self.root.bind('<Key>',self.change_key)
 
-        self.make_apple() #bg gets made in making of apple
-
         self.btn_pos_dict = {} #cause old method made it lag hard
+
+        self.make_apple() #bg gets made in making of apple
 
         self.root.bind('<FocusIn>',lambda e=None:print('yes')) #for testing
         self.root.bind('<FocusOut>',lambda e=None:print('no'))
