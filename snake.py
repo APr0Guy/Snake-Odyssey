@@ -4,7 +4,7 @@ import random
 class snake:
     def __init__(self,root):
         self.root = root
-        self.root.bind('<Key>',lambda e:print(e))
+        self.root.bind('<Key>',lambda e:self.move(e.char))
         self.bg_make()
 
     def bg_make(self):
@@ -17,6 +17,22 @@ class snake:
                 if x == 15*45:
                     x = 0
                     y += 40
+
+        self.bg_color()
+    
+    def bg_color(self):
+        self.pos_1 = [67+15*i for i in range(4)]
+        
+        for widget in self.root.winfo_children():
+            if widget.cget('text') in self.pos_1:
+                widget.config(bg='green',fg='green')
+            
+            else:
+                widget.config(bg='black',fg='black')
+    
+    def move(self,event):
+        self.root.unbind('<Key>')
+        print(event)
 
 if __name__ == '__main__':
     root = tk.Tk()
