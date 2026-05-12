@@ -8,9 +8,13 @@ class snake:
         self.tick_speed = 400
         self.last_pressed = ''
 
+        self.label_main = tk.Label(self.root,text='PRESS SPACE TO START',font='Arial 20 bold') ; self.label_main.pack()
         self.root.bind('<Key>',self.change_key)
 
         self.bg_make()
+
+        self.root.bind('<FocusIn>',lambda e=None:print('yes')) #for testing
+        self.root.bind('<FocusOut>',lambda e=None:print('no'))
 
     def change_key(self,event):
         if event.char in ['w','a','s','d']:
@@ -21,7 +25,7 @@ class snake:
             self.move(self.last_pressed) #actually starts game
 
     def bg_make(self):
-        x = y = 0 # 40x45 (y,x) x is 15 times y is 12 times and diff btwn 2 x is 15
+        x,y = 0,40 # 40x45 (y,x) x is 15 times y is 12 times and diff btwn 2 x is 15
         for i in range(180): #makes all the buttons
             btn = tk.Button(text=i,width=5,height=2,bg='black',fg='black') ; btn.pack()
             btn.place(x=x,y=y)
@@ -35,17 +39,18 @@ class snake:
     
     def bg_color(self):
         for widget in self.root.winfo_children():
-            if int(widget.cget('text')) in self.pos_1:
-                widget.config(bg='green',fg='green') #make things in list green
+            if isinstance(widget,tk.Button):
+                if int(widget.cget('text')) in self.pos_1:
+                    widget.config(bg='green',fg='green') #make things in list green
 
-                if int(widget.cget('text')) == self.pos_1[0]:#change color of head
-                    widget.config(bg='blue',fg='white') #fg = white shows current position in button
+                    if int(widget.cget('text')) == self.pos_1[0]:#change color of head
+                        widget.config(bg='blue',fg='white') #fg = white shows current position in button
 
-                elif int(widget.cget('text')) == self.pos_1[-1]:#change color of tail
-                    widget.config(bg='red',fg='white')
+                    elif int(widget.cget('text')) == self.pos_1[-1]:#change color of tail
+                        widget.config(bg='red',fg='white')
 
-            else:
-                widget.config(bg='black',fg='black') #make everything black
+                else:
+                    widget.config(bg='black',fg='black') #make everything black
 
     def move(self,event):
         if event == 'a': #left
@@ -66,7 +71,7 @@ class snake:
 
 if __name__ == '__main__':
     root = tk.Tk()
-    root.geometry('675x480')
+    root.geometry('675x520')
     root.title('Snake')
     root.resizable(False, False)
     snake(root)
