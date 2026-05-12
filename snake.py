@@ -22,6 +22,9 @@ class snake:
         self.bg_color()
     
     def bg_color(self):
+        self.root.unbind('<Key>')
+        self.root.bind('<Key>',lambda e:self.move(e.char))
+
         for widget in self.root.winfo_children():
             if widget.cget('text') in self.pos_1:
                 widget.config(bg='green',fg='green') #make things in list green
@@ -36,22 +39,30 @@ class snake:
                 widget.config(bg='black',fg='black') #make everything black
     
     def move(self,event):
+        self.tick_speed = 400
+        self.last_pressed = ''
+
         if event == 'a': #left
             self.pos_1.insert(0,self.pos_1[0]-1) #ok puts new pos of head into first index
             self.pos_1.pop() #removes last index
+            self.last_pressed = 'a' #adds the last pressed for auto move
         
         elif event == 'd': #right
             self.pos_1.insert(0,self.pos_1[0]+1)
             self.pos_1.pop()
+            self.last_pressed = 'd'
 
         elif event == 'w': #front
             self.pos_1.insert(0,self.pos_1[0]-15)
             self.pos_1.pop()
+            self.last_pressed = 'w'
         
         elif event == 's': #back
             self.pos_1.insert(0,self.pos_1[0]+15)
             self.pos_1.pop()
+            self.last_pressed = 's'
 
+        self.root.after(self.tick_speed,lambda event=None:self.move(self.last_pressed))
         self.bg_color()
 
 if __name__ == '__main__':
