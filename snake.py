@@ -8,9 +8,17 @@ class snake:
         self.tick_speed = 400
         self.last_pressed = ''
 
-        self.root.bind('<Key>',lambda e:self.move(e.char))
+        self.root.bind('<Key>',self.change_key)
 
         self.bg_make()
+
+    def change_key(self,event):
+        if event.char in ['w','a','s','d']:
+            self.last_pressed = event.char
+
+        elif event.char == ' ': #to start game press space
+            self.last_pressed = 'w'
+            self.move(self.last_pressed) #actually starts game
 
     def bg_make(self):
         x = y = 0 # 40x45 (y,x) x is 15 times y is 12 times and diff btwn 2 x is 15
@@ -38,29 +46,23 @@ class snake:
 
             else:
                 widget.config(bg='black',fg='black') #make everything black
-    
-    def move(self,event):
 
+    def move(self,event):
         if event == 'a': #left
             self.pos_1.insert(0,self.pos_1[0]-1) #assigns new position for head
-            self.last_pressed = 'a' #adds the last pressed for auto move
         
         elif event == 'd': #right
             self.pos_1.insert(0,self.pos_1[0]+1)
-            self.last_pressed = 'd'
 
         elif event == 'w': #front
             self.pos_1.insert(0,self.pos_1[0]-15)
-            self.last_pressed = 'w'
         
         elif event == 's': #back
             self.pos_1.insert(0,self.pos_1[0]+15)
-            self.last_pressed = 's'
 
         self.pos_1.pop() #removes tail
-
-        self.root.after(self.tick_speed,lambda event=None:self.move(self.last_pressed)) #auto move
-        self.bg_color()
+        self.bg_color() #makes things green again according to self.pos_1
+        self.root.after(self.tick_speed,lambda:self.move(self.last_pressed)) #auto move
 
 if __name__ == '__main__':
     root = tk.Tk()
