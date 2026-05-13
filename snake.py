@@ -8,6 +8,7 @@ class snake:
         self.tick_speed = 400
         self.last_pressed = ''
         self.apple_eaten = 0
+        self.start_value = False
 
         self.label_main = tk.Label(self.root,text='PRESS SPACE TO START',font='Arial 20 bold') ; self.label_main.pack()
         self.root.bind('<Key>',self.change_key)
@@ -24,8 +25,9 @@ class snake:
         if event.char in ['w','a','s','d']:
             self.last_pressed = event.char
 
-        elif event.char == ' ': #to start game press space
+        elif event.char == ' ' and self.start_value == False: #to start game press space
             self.last_pressed = 'w'
+            self.start_value = True
             self.move(self.last_pressed) #actually starts game
 
     def make_apple(self):
