@@ -393,9 +393,9 @@ Size of window: {(self.game_values['column']+2)*self.game_values['cell_size'],(s
         self.root.bind('<Key>',self.change_key) #for starting game
 
 if __name__ == '__main__': #this only makes snake run on this file so this wont affect menu
-    #game_values = {'cell_size': int(input('Cell Size: ')) ,'row': int(input('Row: ')),  'column': int(input('Column: ')), 'snake_size': int(input('Size of snake (when starting): ')), 'mode': input('Gamemode (normal[n]/infinite[i]): ').lower(), 'type': input('Gamemode Type (normal[n]/reverse[r]): ').lower()}
+    game_values = {'cell_size': int(input('Cell Size: ')) ,'row': int(input('Row: ')),  'column': int(input('Column: ')), 'snake_size': int(input('Size of snake (when starting): ')), 'mode': input('Gamemode (normal[n]/infinite[i]): ').lower(), 'type': input('Gamemode Type (normal[n]/reverse[r]): ').lower()}
 
-    game_values = {'cell_size': 40 , 'column': 15, 'row': 12, 'snake_size': 4, 'mode': 'n', 'type': 'r'}
+    #game_values = {'cell_size': 40 , 'column': 15, 'row': 12, 'snake_size': 4, 'mode': 'n', 'type': 'r'}
 
     if game_values['column']%2 == 0: #if game_values['column'] is even no the checkerboard wont appear
         game_values['column']+=1
